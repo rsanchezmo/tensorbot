@@ -1,1 +1,1 @@
-from bot import TensorBot
+from tensorbot.bot import TensorBot
