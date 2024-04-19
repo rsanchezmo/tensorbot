@@ -1,10 +1,13 @@
 # TensorBot: Tensorboard Telegram Bot
 `Tensorboard` connection to `telegram` to monitor your training process. You can monitor whatever training you want. Just need
-to provide the path of the tensorboard log, some configuration for the plots of the desired metrics to monitor and a telegram
+to provide the path of the tensorboard log, some configuration for the plots of the desired metrics and a telegram
 token and chat id to send messages to.
 
 ![TensorBot](./docs/tensorbot.png)
 
+> [!NOTE]
+> The goal of this project is to provide a simple and generic way to track your training process when you are not in front of your computer or server. It
+> also aims to be compatible with whatever training you are doing, as long as you are using `tensorboard` to log your metrics.
 
 ## Installation
 Just clone the repo and install the package with pip:
@@ -26,7 +29,7 @@ print(response.json())
 ```
 You should see the `chat: id` in the response. If you receive nothing, remember to send a message to your bot first.
 
-There is an `example.py` file that you can run to see how it works. Just instantiate the `TensorBot` class with your token and chat id, 
+There is an `example.py` file that you can run to see how `tensorbot` works. Just instantiate the `TensorBot` class with your token and chat id, 
 then create your plot config as depicted below and run the bot with the `run` method.
 
 ```python
@@ -115,10 +118,10 @@ You should receive messages like this:
 ![jaxer_timing](./docs/jaxer_timing.jpeg)
  
 Yes, you can see what overfitting is on this training 🤣🤣 This is one of my experiments of a personal project about training a foundational transformer model in `jax/flax` 
-for timeseries forecasting, working with real cryptocurrency and synthetic data. You can go to my `jaxer` [repo](https://github.com/rsanchezmo/jaxer) to see more about this project.
+for timeseries forecasting. I am working with real cryptocurrency and synthetic data. You can go to my `jaxer` [repo](https://github.com/rsanchezmo/jaxer) to see more about this project.
 
 > [!NOTE]
-> You can customize the plots as you want! If you think some feature is missing, please let me know!
+> You can customize the plots as you want! If you think some feature is missing, open an issue and let me know!
 
 
 ## Contributors
