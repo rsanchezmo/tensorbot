@@ -1,4 +1,4 @@
-# TensorBot
+# TensorBot: Tensorboard Telegram Bot
 `Tensorboard` connection to `telegram` to monitor your training process. You can monitor whatever training you want. Just need
 to provide the path of the tensorboard log, some configuration for the plots of the desired metrics to monitor and a telegram
 token and chat id to send messages to.
@@ -7,7 +7,10 @@ token and chat id to send messages to.
 
 
 ## Installation
+Just clone the repo and install the package with pip:
 ```bash
+git clone https://github.com/rsanchezmo/tensorbot.git
+cd tensorbot
 pip install .
 ```
 
@@ -21,7 +24,7 @@ url = f'https://api.telegram.org/bot{YOUR_TELEGRAM_TOKEN}/getUpdates'
 response = requests.get(url)
 print(response.json())
 ```
-You should see the chat `id` in the response. If you receive nothing, remember to send a message to your bot first.
+You should see the `chat: id` in the response. If you receive nothing, remember to send a message to your bot first.
 
 There is an `example.py` file that you can run to see how it works. Just instantiate the `TensorBot` class with your token and chat id, 
 then create your plot config as depicted below and run the bot with the `run` method.
@@ -91,12 +94,12 @@ plot_config = [
     }
 ]
 
-bot.run(experiment_name='my_exp', update_interval=5, plot_config=plot_config,
+bot.run(experiment_name='my_exp', update_interval=1, plot_config=plot_config,
         tensorboard_path='YOUR_TENSORBOARD_PATH')
 ```
 
 To finish the process, just press `Ctrl+C` in the terminal where you are running the script. I thought about 
-stopping when there is now new data for a while. May include this functionality in the future.
+stopping when there is no newer data for a while. May include this functionality in the future.
 
 You should receive messages like this:
 ```
@@ -111,6 +114,28 @@ You should receive messages like this:
 ![jaxer_stats](./docs/jaxer_stats.jpeg)
 ![jaxer_timing](./docs/jaxer_timing.jpeg)
  
+Yes, you can see what overfitting is on this training 🤣🤣 This is one of my experiments of a personal project about training a foundational transformer model in `jax/flax` 
+for timeseries forecasting, working with real cryptocurrency and synthetic data. You can go to my `jaxer` [repo](https://github.com/rsanchezmo/jaxer) to see more about this project.
 
 > [!NOTE]
 > You can customize the plots as you want! If you think some feature is missing, please let me know!
+
+
+## Contributors
+Rodrigo Sánchez Molina
+
+- Email: rsanchezm98@gmail.com
+- Linkedin: [rsanchezm98](https://www.linkedin.com/in/rsanchezm98/)
+- Github: [rsanchezmo](https://github.com/rsanchezmo)
+
+## Citation
+If you find `tensorbot` useful, please consider citing:
+
+```bibtex
+  @misc{2024tensorbot,
+    title     = {TensorBot: Tensorboard Telegram Bot},
+    author    = {Rodrigo Sánchez Molina},
+    year      = {2024},
+    howpublished = {https://github.com/rsanchezmo/tensorbot}
+  }
+```
