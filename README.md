@@ -97,12 +97,12 @@ plot_config = [
     }
 ]
 
-bot.run(experiment_name='my_exp', update_interval=1, plot_config=plot_config,
+bot.run(experiment_name='my_exp', update_interval=1, patience_time=30, plot_config=plot_config,
         tensorboard_path='YOUR_TENSORBOARD_PATH')
 ```
 
-To finish the process, just press `Ctrl+C` in the terminal where you are running the script. I thought about 
-stopping when there is no newer data for a while. May include this functionality in the future.
+To finish the process, just press `Ctrl+C` in the terminal where you are running the script or the process will
+stop after the `patience_time` minutes you set in the `run` method.
 
 You should receive messages like this:
 ```

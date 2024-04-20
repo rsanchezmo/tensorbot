@@ -32,7 +32,6 @@ class TensorBot:
 
     @staticmethod
     def _check_for_updates(last_modified_time: float | None, tensorboard_path: str):
-        # get the list of the files in the tensorboard path
         files = os.listdir(tensorboard_path)
         current_modified_time = max([os.path.getmtime(os.path.join(tensorboard_path, file)) for file in files])
         if current_modified_time != last_modified_time:
@@ -42,7 +41,8 @@ class TensorBot:
     def run(self, experiment_name: str,
             update_interval: int,
             plot_config: List[Dict[str, Any]],
-            tensorboard_path: str):
+            tensorboard_path: str,
+            patience_time: int | None = None):
         """ Run the bot
 
         :param experiment_name: name of the experiment
@@ -57,6 +57,9 @@ class TensorBot:
         :param tensorboard_path: path to the Tensorboard logs
         :type tensorboard_path: str
 
+        :param patience_time: time in minutes to wait until stopping the bot
+        :type patience_time: int | None
+
         :raises FileNotFoundError: if the tensorboard path does not exist
 
         """
@@ -67,9 +70,11 @@ class TensorBot:
         self._send_msg('Checking for updates every {} minutes'.format(update_interval))
 
         last_modified_time = None
+        steps_without_update = 0
         while True:
             update_needed, last_modified_time = self._check_for_updates(last_modified_time, tensorboard_path)
             if update_needed:
+                steps_without_update = 0
                 tmp_paths, train_info = plot_tensorboard_experiment(exp_path=tensorboard_path,
                                                                     plot_config=plot_config)
 
@@ -79,5 +84,10 @@ class TensorBot:
                 for tmp_path in tmp_paths:
                     self._send_photo(tmp_path)
                     Path(tmp_path).unlink()
-
+            else:
+                steps_without_update += 1
             time.sleep(60 * update_interval)
+
+            if patience_time is not None and steps_without_update * update_interval >= patience_time:
+                self._send_msg(f'TensorBot stopped after {patience_time} minutes ⏰')
+                break

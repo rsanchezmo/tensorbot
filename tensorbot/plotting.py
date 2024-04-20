@@ -67,6 +67,7 @@ def plot_tensorboard_experiment(exp_path: str, plot_config: List[Dict[str, Any]]
         fig.tight_layout()
         tmp_path = f'tmp_{figure_idx}.png'
         plt.savefig(tmp_path, dpi=300)
+        plt.close(fig)
         tmp_paths.append(tmp_path)
 
     times = data["wall_time"].values

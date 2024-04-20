@@ -64,5 +64,5 @@ if __name__ == '__main__':
         }
     ]
 
-    bot.run(experiment_name='my_exp', update_interval=1, plot_config=plot_config,
+    bot.run(experiment_name='my_exp', update_interval=1, patience_time=30, plot_config=plot_config,
             tensorboard_path='YOUR_TENSORBOARD_PATH')
