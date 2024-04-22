@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tensorbot"
+description = "A bot to send Tensorboard training or testing plots to Telegram"
+readme = "README.md"
+description-content-type = "text/markdown"
+requires-python = ">=3.7"
+license = { text = "Apache 2.0" }
+authors = [
+    { name = "Rodrigo Sanchez Molina", email = "rsanchezm98@gmail.com" }
+]
+maintainers = [
+    { name = "Rodrigo Sanchez Molina", email = "rsanchezm98@gmail.com" }
+]
+keywords = ["telegram", "tensorboard", "plotting", "machine learning"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "requests",
+    "matplotlib",
+    "tbparse"
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/rsanchezmo/tensorbot"
+Documentation = "https://github.com/rsanchezmo/tensorbot#readme"
+Source = "https://github.com/rsanchezmo/tensorbot"
+Tracker = "https://github.com/rsanchezmo/tensorbot/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+
