@@ -22,7 +22,11 @@ def plot_tensorboard_experiment(exp_path: str, plot_config: List[Dict[str, Any]]
     """
 
     reader = SummaryReader(exp_path, pivot=True, extra_columns={'dir_name', 'wall_time'})
-    data = reader.scalars
+    tb_candidates = [child for child in reader.children.keys() if 'events.out.tfevents' in child]
+    tb_candidates.sort()
+
+    # get the last event file, if there are many
+    data = reader.children[tb_candidates[-1]].scalars
 
     tmp_paths = []
     for figure_idx, figure in enumerate(plot_config):
@@ -54,11 +58,10 @@ def plot_tensorboard_experiment(exp_path: str, plot_config: List[Dict[str, Any]]
                     print(f"Tag {tag} not found in the experiment")
                     continue
 
-                # remove from step and from data[tag] nan values
-                y = np.array([val[-1] if isinstance(val, list) else val for val in data[tag]])
+                y = data[tag]
                 x = data['step']
                 nan_mask = ~np.isnan(y)
-                y = y[nan_mask]
+                y = y.values[nan_mask]
                 x = x.values[nan_mask]
                 ax.plot(x, y, label=tag, color=colors(tags_idx))
                 ax.scatter(x, y, s=10, alpha=0.5, color=colors(tags_idx))

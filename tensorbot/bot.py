@@ -54,7 +54,8 @@ class TensorBot:
         :param plot_config: configuration for the plots
         :type plot_config: List[Dict[str, Any]]
 
-        :param tensorboard_path: path to the Tensorboard logs
+        :param tensorboard_path: path to the Tensorboard logs (folder) if there are many event logs, it will take the
+        last one
         :type tensorboard_path: str
 
         :param patience_time: time in minutes to wait until stopping the bot
