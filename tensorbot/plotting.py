@@ -44,7 +44,7 @@ def plot_tensorboard_experiment(exp_path: str, plot_config: List[Dict[str, Any]]
         tags_idx = 0
         for subplot_idx, subplot in enumerate(subplots):
             if subplot_idx == num_subplots - 1 and odd:
-                ax = fig.add_subplot(gs[subplot_idx // num_cols, :])
+                ax = fig.add_subplot(gs[subplot_idx // num_cols, subplot_idx % num_cols:])
             else:
                 ax = fig.add_subplot(gs[subplot_idx // num_cols, subplot_idx % num_cols])
 
