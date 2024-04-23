@@ -12,6 +12,7 @@ setup(
     install_requires=[
             "requests",
             "matplotlib",
-            "tbparse"
+            "tbparse",
+            "numpy",
     ]
 )
