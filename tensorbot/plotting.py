@@ -60,10 +60,16 @@ def plot_tensorboard_experiment(exp_path: str, plot_config: List[Dict[str, Any]]
                     print(f"Tag {tag} not found in the experiment")
                     continue
 
-                y = data[tag]
-                x = data['step']
+                if isinstance(data[tag][0], list):
+                    y = np.array(data[tag].values.tolist())
+                    y = y[:, 0]
+                else:
+                    y = data[tag].values
+
                 nan_mask = ~np.isnan(y)
-                y = y.values[nan_mask]
+                y = y[nan_mask]
+
+                x = data['step']
                 x = x.values[nan_mask]
                 ax.plot(x, y, label=tag, color=colors(total_tag_idx), linestyle=style[tag_idx], marker=marker[tag_idx])
                 total_tag_idx += 1
