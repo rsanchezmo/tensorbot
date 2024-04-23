@@ -46,14 +46,16 @@ def plot_tensorboard_experiment(exp_path: str, plot_config: List[Dict[str, Any]]
 
         gs = gridspec.GridSpec(num_rows, num_cols)
 
-        tags_idx = 0
+        total_tag_idx = 0
         for subplot_idx, subplot in enumerate(subplots):
             if subplot_idx == num_subplots - 1 and odd:
                 ax = fig.add_subplot(gs[subplot_idx // num_cols, subplot_idx % num_cols:])
             else:
                 ax = fig.add_subplot(gs[subplot_idx // num_cols, subplot_idx % num_cols])
 
-            for tag in subplot['tags']:
+            style = subplot.get('style', ['-'] * len(subplot['tags']))
+            marker = subplot.get('marker', [''] * len(subplot['tags']))
+            for tag_idx, tag in enumerate(subplot['tags']):
                 if tag not in data.columns:
                     print(f"Tag {tag} not found in the experiment")
                     continue
@@ -63,9 +65,8 @@ def plot_tensorboard_experiment(exp_path: str, plot_config: List[Dict[str, Any]]
                 nan_mask = ~np.isnan(y)
                 y = y.values[nan_mask]
                 x = x.values[nan_mask]
-                ax.plot(x, y, label=tag, color=colors(tags_idx))
-                ax.scatter(x, y, s=10, alpha=0.5, color=colors(tags_idx))
-                tags_idx += 1
+                ax.plot(x, y, label=tag, color=colors(total_tag_idx), linestyle=style[tag_idx], marker=marker[tag_idx])
+                total_tag_idx += 1
 
             ax.set_title(subplot.get('title', ''))
             ax.set_yscale(subplot.get('scale', 'linear'))

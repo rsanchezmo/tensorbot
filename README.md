@@ -85,6 +85,8 @@ plot_config = [
                 'title': 'Epoch Time',
                 'scale': 'linear',
                 'legend': True,
+                'style': ['-'],
+                'marker': ['o']
             },
             {
                 'tags': ['test/epoch_time'],
@@ -119,6 +121,37 @@ You should receive messages like this:
  
 Yes, you can see what overfitting is on this training 🤣🤣 This is one of my experiments of a personal project about training a foundational transformer model in `jax/flax` 
 for timeseries forecasting. I am working with real cryptocurrency and synthetic data. You can go to my `jaxer` [repo](https://github.com/rsanchezmo/jaxer) to see more about this project.
+
+I also tested it on reinforcement learning tasks with the logs from [stable-baselines3](https://stable-baselines3.readthedocs.io/en/master/) as you can see on the following figure:
+![rl_stats](./docs/rl_stats.png)
+
+I modified the linestyle by:
+```python
+plot_config = [
+    {
+        'figure_name': 'sb3_stats',
+        'fig_size': (12, 8),
+        'max_cols': 2,
+        'subplots': [
+            {
+                'tags': ['eval/mean_ep_length', 'rollout/ep_len_mean'],
+                'scale': 'linear',
+                'legend': True,
+                'style': ['-.', '-.'],
+                'marker': ['o', 'o']
+            },
+            {
+                'tags': ['eval/mean_reward', 'rollout/ep_rew_mean'],
+                'scale': 'linear',
+                'legend': True,
+                'style': ['-.', '-.'],
+                'marker': ['o', 'o']
+            },
+        ]
+    },
+]
+```
+
 
 > [!NOTE]
 > You can customize the plots as you want! If you think some feature is missing, open an issue and let me know!

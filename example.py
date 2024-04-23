@@ -20,7 +20,8 @@ if __name__ == '__main__':
                     'tags': ['test/acc_dir', 'train/acc_dir'],
                     'title': 'acc_dir',
                     'scale': 'linear',
-                    'legend': True
+                    'legend': True,
+                    'style': ['-', '--']
                 },
                 {
                     'tags': ['test/mape'],
@@ -52,6 +53,7 @@ if __name__ == '__main__':
                     'title': 'Epoch Time',
                     'scale': 'linear',
                     'legend': True,
+                    'style': ['-']
                 },
                 {
                     'tags': ['test/epoch_time'],
